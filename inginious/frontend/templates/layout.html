@@ -127,7 +127,7 @@ $:template_helper.call('header_hook')
 
                             <li><a href="$get_homepath()/courselist" class="navbar-link"><i class="fa fa-th-list fa-fw"></i> $:_("Course list")</a></li>
 
-                            $if allow_registration:
+                            $if allow_registration_page:
                                 <li><a href="$get_homepath()/register" class="navbar-link"><i class="fa fa-pencil fa-fw"></i> $:_("Register")</a></li>
                             <li><a href="$get_homepath()/signin" class="navbar-link"><i class="fa fa-sign-in fa-fw"></i> $:_("Sign in")</a></li>
                         </ol>
@@ -135,7 +135,7 @@ $:template_helper.call('header_hook')
                 </div>
             </div>
         </div>
-    
+
         <div id="main_container" class="container-fluid" role="main">
                 $if "Column" in content:
                     <div id="content" class="col-xs-12 col-sm-8 col-lg-9">
@@ -172,7 +172,7 @@ $:template_helper.call('header_hook')
                 </div>
             </div>
         </div>
-        
+
     </div>
 
     <!-- Placed at the end of the document so the pages load faster -->

@@ -221,6 +221,7 @@ def get_app(config):
     template_helper.add_to_template_globals("available_languages", available_languages)
     template_helper.add_to_template_globals("get_homepath", appli.get_homepath)
     template_helper.add_to_template_globals("allow_registration", config.get("allow_registration", True))
+    template_helper.add_to_template_globals("allow_registration_page", config.get("allow_registration_page", True))
     template_helper.add_to_template_globals("user_manager", user_manager)
     template_helper.add_to_template_globals("default_allowed_file_extensions", default_allowed_file_extensions)
     template_helper.add_to_template_globals("default_max_file_size", default_max_file_size)
@@ -253,6 +254,7 @@ def get_app(config):
     appli.webterm_link = config.get("webterm", None)
     appli.lti_outcome_manager = lti_outcome_manager
     appli.allow_registration = config.get("allow_registration", True)
+    appli.allow_registration_page = config.get("allow_registration_page", True)
     appli.allow_deletion = config.get("allow_deletion", True)
     appli.available_languages = available_languages
     appli.welcome_page = config.get("welcome_page", None)
