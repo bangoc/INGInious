@@ -44,7 +44,7 @@ urls = (
     r'/pages/([^/]+)', 'inginious.frontend.pages.utils.INGIniousStaticPage',
     r'/signin', 'inginious.frontend.pages.utils.SignInPage',
     r'/logout', 'inginious.frontend.pages.utils.LogOutPage',
-    r'/register', 'inginious.frontend.pages.register.RegistrationPage',
+#    r'/register', 'inginious.frontend.pages.register.RegistrationPage',
     r'/auth/signin/([^/]+)', 'inginious.frontend.pages.social.AuthenticationPage',
     r'/auth/callback/([^/]+)', 'inginious.frontend.pages.social.CallbackPage',
     r'/auth/share/([^/]+)', 'inginious.frontend.pages.social.SharePage',
