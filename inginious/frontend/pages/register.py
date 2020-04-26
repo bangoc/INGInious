@@ -103,16 +103,32 @@ class RegistrationPage(INGIniousPage):
                                             "bindings": {},
                                             "language": self.user_manager._session.get("language", "en")})
                 try:
-                    web.sendmail(web.config.smtp_sendername, data["email"], _("Welcome on INGInious"),
-                                 _("""Welcome on INGInious !
+                    web.sendmail(web.config.smtp_sendername, data["email"], _("Welcome on BaNgoc's courses"),
+                                 _("""Welcome on BaNgoc's courses!
+
+your login: %s
+your password: %s
 
 To activate your account, please click on the following link :
-""")
-                                 + web.ctx.home + "/register?activate=" + activate_hash)
+""" % (data["username"], data["passwd"]))
+                                 + self.app.registration_activation_server + "/register?activate=" + activate_hash)
                     msg = _("You are succesfully registered. An email has been sent to you for activation.")
                 except:
+                    # rollback
+                    rollback = ''
+                    try:
+                        self.database.users.delete_one({"username": data["username"],
+                                                    "realname": data["realname"],
+                                                    "email": data["email"],
+                                                    "password": passwd_hash,
+                                                    "activate": activate_hash,
+                                                    "bindings": {},
+                                                    "language": self.user_manager._session.get("language", "en")})
+                        rollback = "Your registration is rolled back."
+                    except:
+                        rollback = "Rollback failed."
                     error = True
-                    msg = _("Something went wrong while sending you activation email. Please contact the administrator.")
+                    msg = _("Something went wrong while sending you activation email. %s Please contact the administrator." %(rollback))
 
         return msg, error
 
@@ -138,11 +154,11 @@ To activate your account, please click on the following link :
                 msg = _("This email address was not found in database.")
             else:
                 try:
-                    web.sendmail(web.config.smtp_sendername, data["recovery_email"], _("INGInious password recovery"),
+                    web.sendmail(web.config.smtp_sendername, data["recovery_email"], _("BaNgoc's courses password recovery"),
                                  _("""Dear {realname},
 
-Someone (probably you) asked to reset your INGInious password. If this was you, please click on the following link :
-""").format(realname=user["realname"]) + web.ctx.home + "/register?reset=" + reset_hash)
+Someone (probably you) asked to reset your password in BaNgoc's courses. If this was you, please click on the following link :
+""").format(realname=user["realname"]) + self.app.registration_activation_server + "/register?reset=" + reset_hash)
                     msg = _("An email has been sent to you to reset your password.")
                 except:
                     error = True

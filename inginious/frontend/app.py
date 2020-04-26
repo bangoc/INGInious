@@ -141,9 +141,13 @@ def get_app(config):
     appli = CookieLessCompatibleApplication(MongoStore(database, 'sessions'))
 
     # Init gettext
+    # available_languages = {
+    #     "en": "English",
+    #     "fr": "Français"
+    # }
+
     available_languages = {
-        "en": "English",
-        "fr": "Français"
+        "en": "English"
     }
 
     for lang in available_languages.keys():
@@ -255,6 +259,7 @@ def get_app(config):
     appli.lti_outcome_manager = lti_outcome_manager
     appli.allow_registration = config.get("allow_registration", True)
     appli.allow_registration_page = config.get("allow_registration_page", True)
+    appli.registration_activation_server = config.get("registration_activation_server", "")
     appli.allow_deletion = config.get("allow_deletion", True)
     appli.available_languages = available_languages
     appli.welcome_page = config.get("welcome_page", None)
